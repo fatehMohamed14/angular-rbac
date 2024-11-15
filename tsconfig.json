@@ -10,6 +10,14 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
+    "paths": {
+      "ng-rbac": [
+        "./dist/ng-rbac"
+      ],
+      "ngx-rbac": [
+        "./dist/ngx-rbac"
+      ]
+    },
     "esModuleInterop": true,
     "sourceMap": true,
     "declaration": false,
