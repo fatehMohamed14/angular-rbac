@@ -13,7 +13,7 @@ jobs:
           node-version: 20.x
           registry-url: https://registry.npmjs.org/
       - run: yarn
-      - run: yarn build
+      - run: yarn build angular-rbac
       - run: |
           cd dist/angular-rbac
           npm publish --access=public
