@@ -41,7 +41,7 @@ import { CanAccessDirective } from 'angular-rbac';
 export class PlanetsComponent implements OnInit {}
 ```
 **Template**
-``` htlm
+```tsx
 <div
   *canAccess="{ roles: ['admin'], permissions: ['user-delete'] }; other: falseTemplate"
   class="container-header"
