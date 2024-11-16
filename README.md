@@ -105,4 +105,31 @@ export const routes: Routes = [
   },
 ];
 ```
-💡 **Unlike the other guards canMatchAccessGuard accepts only one parameter (candidate) since CanMatch will not load the route at all if the guard returns false; it will automatically redirect to / or notfound route**
+💡 **Unlike the other guards canMatchAccessGuard accepts only one parameter (candidate) since CanMatch will not load the route at all if the guard returns false; **
+
+#### Example of canMatchAccessGuard
+
+You can define multiple routes with same path and load only one based on the logged in user role
+
+```typescript
+
+export const routes: Routes = [
+   {
+    path: 'home',
+    loadComponent: () => import('./admin.component').then((m) => m.AdminComponent),
+     canMatch: [canMatchAccessGuard({ roles: ['admin'] })],
+  },
+   {
+    path: 'home',
+    loadComponent: () => import('./auditor.component').then((m) => m.AuditorComponent),
+    canMatch: [canMatchAccessGuard({ roles: ['auditor'] })],
+  },
+   {
+    path: 'home',
+    loadComponent: () => import('./visitor.component').then((m) => m.VisitorComponent),
+    canMatch: [canMatchAccessGuard({ roles: ['visitor'] })],
+  } 
+];
+```
+
+
