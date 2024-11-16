@@ -6,7 +6,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { Abilities } from '../shared/interfaces';
-import { NgxRbacService } from '../public-api';
+import { AngularRbacService } from '../lib/angular-rbac.service';
 
 @Directive({
   selector: '[@CanAccess]',
@@ -15,7 +15,7 @@ import { NgxRbacService } from '../public-api';
 export class CanAccessDirective {
   protected readonly templateRef = inject(TemplateRef);
   protected readonly viewContainer = inject(ViewContainerRef);
-  ngxRbacService = inject(NgxRbacService);
+  ngxRbacService = inject(AngularRbacService);
 
   @Input({ required: true }) abilities!: Partial<Abilities>;
   @Input() conditionalRenderOther!: TemplateRef<any>;

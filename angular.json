@@ -28,31 +28,28 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "projects/ng-rbac/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         }
       }
     },
-    "ngx-rbac": {
+    "angular-rbac": {
       "projectType": "library",
-      "root": "projects/ngx-rbac",
-      "sourceRoot": "projects/ngx-rbac/src",
+      "root": "projects/angular-rbac",
+      "sourceRoot": "projects/angular-rbac/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/ngx-rbac/ng-package.json"
+            "project": "projects/angular-rbac/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/ngx-rbac/tsconfig.lib.prod.json"
+              "tsConfig": "projects/angular-rbac/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/ngx-rbac/tsconfig.lib.json"
+              "tsConfig": "projects/angular-rbac/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -60,11 +57,8 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "tsConfig": "projects/ngx-rbac/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
+            "tsConfig": "projects/angular-rbac/tsconfig.spec.json",
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         }
       }

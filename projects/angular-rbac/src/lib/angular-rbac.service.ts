@@ -12,7 +12,7 @@ interface rbacState {
 @Injectable({
   providedIn: 'root',
 })
-export class NgxRbacService {
+export class AngularRbacService {
   error$ = new Subject<any>();
   abilities$ = new Subject<Partial<Abilities>>();
 

@@ -1,5 +1,5 @@
 {
-  "name": "ngx-rbac",
+  "name": "angular-rbac",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^18.2.0",
