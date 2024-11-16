@@ -43,13 +43,7 @@ export class PlanetsComponent implements OnInit {}
 **Template**
 ```tsx
 <div
-  *canAccess="{ roles: ['admin'], permissions: ['user-delete'] }; other: falseTemplate"
-  class="container-header"
-  fxLayout="row wrap"
-  fxLayout.xs="column"
-  fxLayoutGap="0.5%"
-  fxLayoutAlign="left"
->
+  *canAccess="{ roles: ['admin'], permissions: ['user-delete'] }; other: falseTemplate">
   <div>Protected users list here</div>
 </div>
 
@@ -105,7 +99,7 @@ export const routes: Routes = [
   },
 ];
 ```
-💡 **Unlike the other guards canMatchAccessGuard accepts only one parameter (candidate) since CanMatch will not load the route at all if the guard returns false; **
+💡 **Unlike the other guards canMatchAccessGuard accepts only one parameter (candidate) since CanMatch will not load the route at all if the guard returns false;**
 
 #### Example of canMatchAccessGuard
 
