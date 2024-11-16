@@ -3,4 +3,4 @@
  */
 
 export * from './lib/angular-rbac.service';
-export * from './directives/can-access.directive';
+export * from './lib/directives/can-access.directive';
