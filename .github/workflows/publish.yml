@@ -15,6 +15,7 @@ jobs:
       - run: yarn
       - run: yarn build
       - run: npm publish --access=public
-        working-director: ./dist/angular-rbac
+        with:
+          working-director: ./dist/angular-rbac
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
