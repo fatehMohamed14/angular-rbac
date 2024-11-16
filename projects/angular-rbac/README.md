@@ -11,7 +11,7 @@ angular-rbac provides:
 It is very easy to set roles and permissions to **angular-rbac** by passing a new value to abilities Subject inside AngularRbacService service. It is an action that you can do after login and after reload from your different sources **[http calls, store, localstorage]**. Example:
 
 ```typescript
-import { Abilities, AngularRbacService } from 'angular-rbac';
+import { Abilities, AngularRbacService } from '@fatehmoh/angular-rbac';
 ...
 export class AppComponent implements OnInit {
   rbacService = inject(AngularRbacService);
@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
 ## DOM control through canAccess directive
 
 ```typescript
-import { CanAccessDirective } from 'angular-rbac';
+import { CanAccessDirective } from '@fatehmoh/angular-rbac';
 ...
 @Component({
   selector: 'moh-planets',
