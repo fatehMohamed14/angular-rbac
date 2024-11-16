@@ -5,7 +5,12 @@ angular-rbac provides:
 
 - **Access structural directive** for DOM control based on roles and permissions.
 - **Customized Access Guards** for routes protecting
+## Installation
+`npm i @fatehmoh/angular-rbac`
 
+or 
+
+`yarn add @fatehmoh/angular-rbac`
 ## Setting roles and permissions
 
 It is very easy to set roles and permissions to **angular-rbac** by passing a new value to abilities Subject inside AngularRbacService service. It is an action that you can do after login and after reload from your different sources **[http calls, store, localstorage]**. Example:
