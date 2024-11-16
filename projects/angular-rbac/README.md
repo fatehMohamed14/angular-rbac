@@ -1,25 +1,128 @@
-# NgxRbac
+# Angular RBAC
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.0.
+angular-rbac is a lightweight role/permission based access control library to manage access to routes and components in your angular applications with ease.
+angular-rbac provides:
 
-## Code scaffolding
+- **Access structural directive** for DOM control based on roles and permissions.
+- **Customized Access Guards** for routes protecting
 
-Run `ng generate component component-name --project angular-rbac` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project angular-rbac`.
+## Setting roles and permissions
 
-> Note: Don't forget to add `--project angular-rbac` or else it will be added to the default project in your `angular.json` file.
+It is very easy to set roles and permissions to **angular-rbac** by passing a new value to abilities Subject inside AngularRbacService service. It is an action that you can do after login and after reload from your different sources **[http calls, store, localstorage]**. Example:
 
-## Build
+```typescript
+import { Abilities, AngularRbacService } from 'angular-rbac';
+...
+export class AppComponent implements OnInit {
+  rbacService = inject(AngularRbacService);
+  currentUserAbilities: Abilities = {
+    roles: ['owner', 'admin'],
+    permissions: ['create-user', 'delete-user'],
+  };
+  ngOnInit(): void {
+    this.rbacService.abilities$.next(this.currentUserAbilities);
+  }
+}
+```
 
-Run `ng build angular-rbac` to build the project. The build artifacts will be stored in the `dist/` directory.
+## DOM control through canAccess directive
 
-## Publishing
+```typescript
+import { CanAccessDirective } from 'angular-rbac';
+...
+@Component({
+  selector: 'moh-planets',
+  standalone: true,
+  imports: [
+    CommonModule,
+    CanAccessDirective,
+  ],
+  templateUrl: './planets.component.html',
+  styleUrl: './planets.component.scss',
+})
+export class PlanetsComponent implements OnInit {}
+```
 
-After building your library with `ng build angular-rbac`, go to the dist folder `cd dist/angular-rbac` and run `npm publish`.
+**Template**
 
-## Running unit tests
+```tsx
+<div
+  *canAccess="{ roles: ['admin'], permissions: ['user-delete'] }; other: falseTemplate">
+  <div>Protected users list here</div>
+</div>
 
-Run `ng test angular-rbac` to execute the unit tests via [Karma](https://karma-runner.github.io).
+<ng-template #falseTemplate>
+  <p>You do not have permission!</p>
+</ng-template>
+```
 
-## Further help
+The directive takes 2 inputs:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- **abilities** (Required) of type `{
+  roles: string[];
+  permissions: string[];
+}`
+- **templateRef** (optional): to be visible in case of failed permission
+
+## Route guards
+
+angular-rbac provide 3 different quards :
+
+- **canActivateAccessGuard** for routes activation [CanActivate](https://angular.dev/api/router/CanActivate)
+- **canActivateChildAccessGuard** for children activation [CanActivateChild](https://angular.dev/api/router/CanActivateChild)
+- **canMatchAccessGuard** for route loading based on condition [CanMatch](https://angular.dev/api/router/CanMatch)
+
+angular-rbac guards accept 3 parameters :
+
+- **candidate** (required):Partial<Abilities>; to define roles and permissions allowed to access a specific route.
+- **redirectUrl** (optional):string; to define the redirectUrl when the guard return false, for instance **/login** or **/no-permission**
+- **skipLocationChange** (optional): boolean; In case you want to stay on same route location but still navigate the redirectUrl correspondent component.
+
+```typescript
+import { Routes } from "@angular/router";
+import { canActivateChildAccessGuard, canMatchAccessGuard } from "angular-rbac";
+
+export const routes: Routes = [
+  {
+    path: "planet",
+    component: LayoutComponent,
+    loadChildren: () => import("./features/planet/planet.routes").then((routes) => routes.PLANET_ROUTES),
+    canActivateChild: [canActivateChildAccessGuard({ roles: ["admin"], permissions: ["read-planets", "create-planets"] }, "/auth/login", true)],
+  },
+  {
+    path: "auth",
+    loadChildren: () => import("./core/auth/auth.routes").then((routes) => routes.AUTH_ROUTES),
+  },
+  {
+    path: "",
+    redirectTo: "/planet/list",
+    pathMatch: "full",
+  },
+];
+```
+
+💡 **Unlike the other guards canMatchAccessGuard accepts only one parameter (candidate) since CanMatch will not load the route at all if the guard returns false;**
+
+#### Example of canMatchAccessGuard
+
+You can define multiple routes with same path and load only one based on the logged in user role
+
+```typescript
+export const routes: Routes = [
+  {
+    path: "home",
+    loadComponent: () => import("./admin.component").then((m) => m.AdminComponent),
+    canMatch: [canMatchAccessGuard({ roles: ["admin"] })],
+  },
+  {
+    path: "home",
+    loadComponent: () => import("./auditor.component").then((m) => m.AuditorComponent),
+    canMatch: [canMatchAccessGuard({ roles: ["auditor"] })],
+  },
+  {
+    path: "home",
+    loadComponent: () => import("./visitor.component").then((m) => m.VisitorComponent),
+    canMatch: [canMatchAccessGuard({ roles: ["visitor"] })],
+  },
+];
+```
