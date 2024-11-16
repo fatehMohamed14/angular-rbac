@@ -13,9 +13,7 @@ interface rbacState {
   providedIn: 'root',
 })
 export class AngularRbacService {
-  error$ = new Subject<any>();
   abilities$ = new Subject<Partial<Abilities>>();
-
   private state = signal<rbacState>({
     status: 'pending',
   });
@@ -36,17 +34,22 @@ export class AngularRbacService {
   }
 
   can(candidate: Partial<Abilities>): boolean {
-    if (candidate.roles && candidate.roles?.length > 0) {
-      const intersections = intersection(candidate.roles, this.roles());
-      return intersections.length > 0;
+    // If abilities are not loaded yet
+    if (this.status() !== 'loaded') {
+      throw new Error('Abilities are not loaded yet!');
+    } else {
+      if (candidate.roles && candidate.roles?.length > 0) {
+        const intersections = intersection(candidate.roles, this.roles());
+        return intersections.length > 0;
+      }
+      if (candidate.permissions && candidate.permissions?.length > 0) {
+        const intersections = intersection(
+          candidate.permissions,
+          this.permissions()
+        );
+        return intersections.length > 0;
+      }
+      return false;
     }
-    if (candidate.permissions && candidate.permissions?.length > 0) {
-      const intersections = intersection(
-        candidate.permissions,
-        this.permissions()
-      );
-      return intersections.length > 0;
-    }
-    return false;
   }
 }
