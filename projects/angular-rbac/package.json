@@ -1,5 +1,10 @@
 {
-  "name": "angular-rbac",
+  "name": "@fatehmoh/angular-rbac",
+  "author": {
+    "name": "Fateh mohamed",
+    "email": "fatehh.mohammed@gmail.com",
+    "url": "https://github.com/fatehMohamed14"
+  },
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^18.2.0",
@@ -8,5 +13,26 @@
   "dependencies": {
     "tslib": "^2.3.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fatehMohamed14/angular-rbac"
+  },
+  "keywords": [
+    "angular",
+    "angular18",
+    "role based access control",
+    "permission based access control",
+    "rbac",
+    "pbac",
+    "guard",
+    "roles",
+    "permission",
+    "security",
+    "access control"
+  ],
+  "bugs": {
+    "url": "https://github.com/fatehMohamed14/angular-rbac/issues"
+  },
+  "homepage": "https://github.com/fatehMohamed14/angular-rbac#readme"
 }
