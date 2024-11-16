@@ -14,8 +14,8 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: yarn
       - run: yarn build
-      - run: npm publish --access=public
-        with:
-          working-director: ./dist/angular-rbac
+      - run: |
+          cd dist/angular-rbac
+          npm publish --access=public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
