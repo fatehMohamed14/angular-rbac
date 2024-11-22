@@ -34,5 +34,6 @@
   "bugs": {
     "url": "https://github.com/fatehMohamed14/angular-rbac/issues"
   },
-  "homepage": "https://github.com/fatehMohamed14/angular-rbac#readme"
+  "homepage": "https://github.com/fatehMohamed14/angular-rbac#readme",
+  "license": "MIT"
 }
