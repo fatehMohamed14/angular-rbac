@@ -5,7 +5,7 @@
     "email": "fatehh.mohammed@gmail.com",
     "url": "https://github.com/fatehMohamed14"
   },
-  "version": "1.0.2",
+  "version": "1.0.3",
   "peerDependencies": {
     "@angular/common": "^18.2.0",
     "@angular/core": "^18.2.0"
